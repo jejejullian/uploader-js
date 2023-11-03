@@ -4,7 +4,7 @@
 
 <h3>A demonstration of how to access a File Upload Button</h3>
 
-<input type="file" id="myFile" capture="false" accept="image/*">
+<input type="file" id="myFile">
 
 <p>Click the "Try it" button to disable the file upload button.</p>
 
@@ -13,7 +13,7 @@
 <script>
 function myFunction() {
   var x = document.getElementById("myFile");
-  x.capture = false;
+  x.disabled = true;
 }
 </script>
 
