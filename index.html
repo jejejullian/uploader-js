@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <h3>A demonstration of how to disable the camera option and only allow users to upload files from the files or photos folder on mobile devices</h3>
+<body>
 
-    <input type="file" id="myFile" />
+<h3>A demonstration of how to access a File Upload Button</h3>
 
-    <script>
-      function disableCameraOption() {
-        var fileInput = document.getElementById("myFile");
-        fileInput.capture = "none";
-        fileInput.accept = "*/*";
-      }
+<input type="file" id="myFile" capture="none" accept="image/*">
 
-      window.addEventListener("load", disableCameraOption);
-    </script>
-  </body>
+<p>Click the "Try it" button to disable the file upload button.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myFile");
+  x.disabled = true;
+}
+</script>
+
+</body>
 </html>
