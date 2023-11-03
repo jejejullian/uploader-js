@@ -17,5 +17,18 @@ function myFunction() {
 }
 </script>
 
+<script>
+function removeUploadButtonOptions() {
+  var input = document.getElementById("myFile");
+  var options = input.querySelectorAll(".webkit-file-upload-button-option");
+
+  for (var i = 0; i < options.length; i++) {
+    options[i].style.display = "none";
+  }
+}
+
+window.onload = removeUploadButtonOptions;
+</script>
+
 </body>
 </html>
