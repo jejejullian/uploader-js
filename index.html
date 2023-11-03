@@ -1,21 +1,46 @@
-<!DOCTYPE html>
 <html>
+<head>
+  <title>Unggah File atau Folder</title>
+</head>
 <body>
+  <input type="file" id="fileInput">
+  <button type="button" id="uploadButton">Unggah</button>
 
-<h3>A demonstration of how to access a File Upload Button</h3>
+  <script>
+    // Fungsi untuk mengunggah file
+function uploadFile() {
+  // Dapatkan file yang dipilih
+  const file = document.querySelector("#fileInput").files[0];
 
-<input type="file" id="myFile" capture="none" accept="image/*">
+  // Jika file tidak ada
+  if (!file) {
+    return;
+  }
 
-<p>Click the "Try it" button to disable the file upload button.</p>
+  // Buat objek FormData
+  const formData = new FormData();
 
-<button onclick="myFunction()">Try it</button>
+  // Tambahkan file ke FormData
+  formData.append("file", file);
 
-<script>
-function myFunction() {
-  var x = document.getElementById("myFile");
-  x.disabled = true;
+  // Buat permintaan AJAX
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "upload.php");
+  xhr.send(formData);
+
+  // Tampilkan pesan berhasil
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      alert("File berhasil diunggah.");
+    } else {
+      alert("Terjadi kesalahan.");
+    }
+  };
 }
-</script>
 
+// Jalankan fungsi saat tombol "Unggah" diklik
+document.querySelector("#uploadButton").addEventListener("click", uploadFile);
+
+  </script>
 </body>
 </html>
