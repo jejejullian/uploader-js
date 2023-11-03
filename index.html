@@ -10,10 +10,15 @@
     <button onclick="myFunction()">Try it</button>
 
     <script>
-      function myFunction() {
-        var x = document.getElementById("myFile");
-        x.disabled = true;
-      }
+      function disableFileInputIfMobile() {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    var fileInput = document.getElementById("myFile");
+    fileInput.disabled = true;
+  }
+}
+
+window.addEventListener("load", disableFileInputIfMobile);
+
     </script>
   </body>
 </html>
