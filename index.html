@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Unggah File atau Folder</title>
 </head>
 <body>
@@ -7,40 +9,50 @@
   <button type="button" id="uploadButton">Unggah</button>
 
   <script>
-    // Fungsi untuk mengunggah file
-function uploadFile() {
-  // Dapatkan file yang dipilih
-  const file = document.querySelector("#fileInput").files[0];
+    function uploadFile() {
+      // Dapatkan file yang dipilih
+      const file = document.querySelector("#fileInput").files[0];
 
-  // Jika file tidak ada
-  if (!file) {
-    return;
-  }
+      // Jika file tidak ada
+      if (!file) {
+        return;
+      }
 
-  // Buat objek FormData
-  const formData = new FormData();
+      // Buat objek FormData
+      const formData = new FormData();
 
-  // Tambahkan file ke FormData
-  formData.append("file", file);
+      // Tambahkan file ke FormData
+      formData.append("file", file);
 
-  // Buat permintaan AJAX
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "upload.php");
-  xhr.send(formData);
+      // Buat permintaan AJAX
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "upload.php");
+      xhr.send(formData);
 
-  // Tampilkan pesan berhasil
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      alert("File berhasil diunggah.");
-    } else {
-      alert("Terjadi kesalahan.");
+      // Tampilkan pesan berhasil
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          alert("File berhasil diunggah.");
+        } else {
+          alert("Terjadi kesalahan.");
+        }
+      };
     }
-  };
-}
 
-// Jalankan fungsi saat tombol "Unggah" diklik
-document.querySelector("#uploadButton").addEventListener("click", uploadFile);
+    // Jalankan fungsi saat tombol "Unggah" diklik
+    document.querySelector("#uploadButton").addEventListener("click", uploadFile);
 
+    // Fungsi untuk memblokir akses ke kamera
+    function blockCamera() {
+      // Jika perangkat adalah mobile
+      if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        // Hapus opsi "kamera" dari input file
+        document.querySelector("input[name='file']").options.remove(document.querySelector("input[name='file']").options[0]);
+      }
+    }
+
+    // Jalankan fungsi saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", blockCamera);
   </script>
 </body>
 </html>
