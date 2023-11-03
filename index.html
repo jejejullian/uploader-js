@@ -1,34 +1,55 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>File Upload Example</title>
+</head>
 <body>
+    <form action="/api" method="post" enctype="multipart/form-data">
+        <label for="file">File</label>
+        <input id="file" name="file" type="file" />
+        <button>Upload</button>
+    </form>
 
-<h3>A demonstration of how to access a File Upload Button</h3>
+    <script>
+        /** @param {Event} event */
+        function handleSubmit(event) {
+            const form = event.currentTarget;
+            const url = new URL(form.action);
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams(formData);
 
-<input type="file" id="myFile">
+            /** @type {Parameters<fetch>[1]} */
+            const fetchOptions = {
+                method: form.method,
+            };
 
-<p>Click the "Try it" button to disable the file upload button.</p>
+            if (form.method.toLowerCase() === 'post') {
+                if (form.enctype === 'multipart/form-data') {
+                    fetchOptions.body = formData;
+                } else {
+                    fetchOptions.body = searchParams;
+                }
+            } else {
+                url.search = searchParams;
+            }
 
-<button onclick="myFunction()">Try it</button>
+            fetch(url, fetchOptions)
+                .then(response => {
+                    if (response.ok) {
+                        console.log('File uploaded successfully.');
+                    } else {
+                        console.error('File upload failed.');
+                    }
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
 
-<script>
-function myFunction() {
-  var x = document.getElementById("myFile");
-  x.disabled = true;
-}
-</script>
+            event.preventDefault();
+        }
 
-<script>
-function removeUploadButtonOptions() {
-  var input = document.getElementById("myFile");
-  var options = input.querySelectorAll(".webkit-file-upload-button-option");
-
-  for (var i = 0; i < options.length; i++) {
-    options[i].style.display = "none";
-  }
-}
-
-window.onload = removeUploadButtonOptions;
-</script>
-
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleSubmit);
+    </script>
 </body>
 </html>
